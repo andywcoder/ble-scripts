@@ -1,6 +1,6 @@
 # Flower care
 
-c# scripts to read the sensor data of the <a href="http://www.huahuacaocao.com/product">Flower Care Smart Monitor</a> (temperature, light inensity, watering and fertility).
+c# scripts to read the sensor data of the <a href="http://www.huahuacaocao.com/product">Flower Care Smart Monitor</a> (temperature, light intensity, watering and fertility).
 
 Some people already did the reverse engineering work (thanks a lot) and they have written python scripts to read the sensor data.
 * <a href="https://www.open-homeautomation.com/2016/08/23/reverse-engineering-the-mi-plant-sensor/">https://www.open-homeautomation.com/2016/08/23/reverse-engineering-the-mi-plant-sensor/</a>
