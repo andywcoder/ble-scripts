@@ -3,7 +3,7 @@
 // https://wiki.hackerspace.pl/projects:xiaomi-flora
 // https://community.home-assistant.io/t/xiaomi-mi-plants-monitor-flower/3388
 
-#r "C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.15063.0\Windows.winmd"
+#r "C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.16299.0\Windows.winmd"
 
 #load "..\..\Include\Ble.csx"
 
@@ -43,7 +43,7 @@ async Task<FlowerCareSensorData> GetFlowerCareSensorDataAsync(string deviceId)
     var initializationCharacteristic = await GetCharacteristicAsync(service, new Guid("00001a00-0000-1000-8000-00805f9b34fb"));
     var sensorDataCharacteristic = await GetCharacteristicAsync(service, new Guid("00001a01-0000-1000-8000-00805f9b34fb"));
 
-    await WriteCharacteristic(initializationCharacteristic, new byte[] { 0xa0, 0x1f });
+    await WriteCharacteristicAsync(initializationCharacteristic, new byte[] { 0xa0, 0x1f });
 
     var sensorData = await ReadCharacteristicAsync(sensorDataCharacteristic);
 

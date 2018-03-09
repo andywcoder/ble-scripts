@@ -63,7 +63,7 @@ async Task<byte[]> ReadCharacteristicAsync(GattCharacteristic characteristic)
     }
 }
 
-async Task WriteCharacteristic(GattCharacteristic characteristic, byte[] data)
+async Task WriteCharacteristicAsync(GattCharacteristic characteristic, byte[] data)
 {
     Console.WriteLine($"Write value, Uuid={characteristic.Uuid}, Data={string.Join("-", Array.ConvertAll(data, b => b.ToString("X2")))}");
 
