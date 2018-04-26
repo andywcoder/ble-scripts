@@ -4,6 +4,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Security.Cryptography;
 using Windows.Devices.Bluetooth;
 using Windows.Devices.Bluetooth.GenericAttributeProfile;
+using Windows.Foundation;
 
 async Task<BluetoothLEDevice> ConnectToDeviceAsync(string deviceId)
 {
@@ -44,6 +45,21 @@ async Task<GattCharacteristic> GetCharacteristicAsync(GattDeviceService service,
     {
         throw new Exception($"Couldn't discover characteristic {characteristicsResult.Status}");
     }
+}
+
+async Task RegisterCharacteristicNotificationHandler(GattCharacteristic characteristic, TypedEventHandler<GattCharacteristic, GattValueChangedEventArgs> notificationHandler)
+{
+	Console.WriteLine($"Register characteristic notification handler, Uuid={characteristic.Uuid}");
+
+	var communicationStatus  = await characteristic.WriteClientCharacteristicConfigurationDescriptorAsync(GattClientCharacteristicConfigurationDescriptorValue.Notify);
+	if(communicationStatus == GattCommunicationStatus.Success)
+	{
+		characteristic.ValueChanged += notificationHandler;
+	}
+	else
+	{
+		throw new Exception($"Couldn't register characteristic notification handler {communicationStatus}");
+	}
 }
 
 async Task<byte[]> ReadCharacteristicAsync(GattCharacteristic characteristic)
