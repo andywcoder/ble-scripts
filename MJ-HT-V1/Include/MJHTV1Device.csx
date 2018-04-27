@@ -1,5 +1,4 @@
 // Infos about the characteristics can be found at
-// https://forum.fhem.de/index.php?topic=82249.15
 // https://github.com/sputnikdev/bluetooth-gatt-parser/blob/master/src/test/java/org/sputnikdev/bluetooth/gattparser/GenericCharacteristicParserIntegrationTest.java
 
 #r "C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.16299.0\Windows.winmd"
@@ -7,7 +6,10 @@
 #load "..\..\Include\Ble.csx"
 
 using System.Threading;
+using System.Text;
+using System.Text.RegularExpressions;
 using Windows.Foundation;
+using Windows.Storage.Streams;
 
 struct MJHTV1Status
 {
@@ -40,19 +42,26 @@ async Task<MJHTV1SensorData> GetMJHTV1SensorDataAsync(string deviceId)
 {
     var device = await ConnectToDeviceAsync(deviceId);
     var service = await GetServiceAsync(device, new Guid("226c0000-6476-4566-7562-66734470666d"));
-    var sensorDataCharacteristic = await GetCharacteristicAsync(service, new Guid("226cbb55-6476-4566-7562-66734470666d"));
+    var sensorDataCharacteristic = await GetCharacteristicAsync(service, new Guid("226caa55-6476-4566-7562-66734470666d"));
 
 	var manualResetEvent = new ManualResetEvent(false);
 	var mjhtv1SensorData = new MJHTV1SensorData();
 	
-	await RegisterCharacteristicNotificationHandler(sensorDataCharacteristic, (sender, eventArgs) => 
+	await RegisterCharacteristicNotificationHandler(sensorDataCharacteristic, (sender, args) => 
 	{
-		mjhtv1SensorData.Temperature = 1;
-		mjhtv1SensorData.AirHumidity = 1;
+		var reader = DataReader.FromBuffer(args.CharacteristicValue);
+		byte[] data = new byte[reader.UnconsumedBufferLength];
+		reader.ReadBytes(data);
+		var dataString = Encoding.ASCII.GetString(data).TrimEnd(new char[] { (char)0 });
+		var match = Regex.Match(dataString, @"T=([\d\.]*)\s+?H=([\d\.]*)");
+		if (match.Success)
+		{
+			mjhtv1SensorData.Temperature = float.Parse(match.Groups[1].Captures[0].Value);
+			mjhtv1SensorData.AirHumidity = float.Parse(match.Groups[2].Captures[0].Value);
+		}
+
 		manualResetEvent.Set();
 	});
-	
-	await WriteCharacteristicAsync(sensorDataCharacteristic, new byte[] { 0x01, 0x00 });
 	
 	manualResetEvent.WaitOne();
 	
