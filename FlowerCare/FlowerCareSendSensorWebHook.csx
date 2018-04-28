@@ -21,13 +21,20 @@ else
     var deviceName = commandLineArgs["--device-name"];
     var webHookUrl = commandLineArgs["--web-hook-url"];
 
-    var sensorData = await GetFlowerCareSensorDataAsync(deviceId);
+	try
+	{
+		var sensorData = await GetFlowerCareSensorDataAsync(deviceId);
 
-    Console.WriteLine();
-    Console.WriteLine($"Temperature {sensorData.Temperature} °C");
-    Console.WriteLine($"Light intensity {sensorData.LightIntensity} lux");
-    Console.WriteLine($"Soil moisture {sensorData.SoilMoisture}%");
-    Console.WriteLine($"Soil fertility {sensorData.SoilFertility} µS/cm");
+		Console.WriteLine();
+		Console.WriteLine($"Temperature {sensorData.Temperature} °C");
+		Console.WriteLine($"Light intensity {sensorData.LightIntensity} lux");
+		Console.WriteLine($"Soil moisture {sensorData.SoilMoisture}%");
+		Console.WriteLine($"Soil fertility {sensorData.SoilFertility} µS/cm");
 
-    await PostJsonData(webHookUrl, @"{""name"": """ + deviceName + @""", ""soilMoisture"": " + sensorData.SoilMoisture + "}");
+		await PostJsonData(webHookUrl, @"{""name"": """ + deviceName + @""", ""soilMoisture"": " + sensorData.SoilMoisture + "}");
+	}
+	catch(Exception e)
+	{
+		Console.WriteLine($"Error: {e.Message}");
+	}
 }

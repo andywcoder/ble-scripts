@@ -1,6 +1,3 @@
-// Infos about the characteristics can be found at
-// https://github.com/sputnikdev/bluetooth-gatt-parser/blob/master/src/test/java/org/sputnikdev/bluetooth/gattparser/GenericCharacteristicParserIntegrationTest.java
-
 #r "C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.16299.0\Windows.winmd"
 
 #load "..\..\Include\Ble.csx"
@@ -26,15 +23,19 @@ struct MJHTV1SensorData
 async Task<MJHTV1Status> GetMJHTV1StatusAsync(string deviceId)
 {
     var device = await ConnectToDeviceAsync(deviceId);
-    var service = await GetServiceAsync(device, new Guid("00001204-0000-1000-8000-00805f9b34fb"));
-    var statusCharacteristic = await GetCharacteristicAsync(service, new Guid("00001a02-0000-1000-8000-00805f9b34fb"));
+ 
+	var batteryService = await GetServiceAsync(device, new Guid("0000180f-0000-1000-8000-00805f9b34fb"));
+    var batteryCharacteristic = await GetCharacteristicAsync(batteryService, new Guid("00002a19-0000-1000-8000-00805f9b34fb"));
+    var battery = await ReadCharacteristicAsync(batteryCharacteristic);
 
-    var status = await ReadCharacteristicAsync(statusCharacteristic);
+	var infoService = await GetServiceAsync(device, new Guid("0000180a-0000-1000-8000-00805f9b34fb"));
+    var infoCharacteristic = await GetCharacteristicAsync(infoService, new Guid("00002a26-0000-1000-8000-00805f9b34fb"));
+	var firmwareVersion = await ReadCharacteristicAsync(infoCharacteristic);
 
     return new MJHTV1Status()
     {
-        BatteryLevel = status[0],
-        FirmwareVersion = Encoding.ASCII.GetString(status.Skip(2).Take(6).ToArray())
+        BatteryLevel = battery[0],
+        FirmwareVersion = Encoding.ASCII.GetString(firmwareVersion).TrimEnd(new char[] { (char)0 })
     };
 }
 

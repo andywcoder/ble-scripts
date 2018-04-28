@@ -1,5 +1,5 @@
 #load "..\Include\CommandLine.csx"
-#load "Include\FlowerCareDevice.csx"
+#load "Include\MJHTV1Device.csx"
 
 var commandLineArgs = ParseCommandLineArgs();
 if (!commandLineArgs.ContainsKey("--device-id"))
@@ -12,7 +12,7 @@ else
 
 	try
 	{
-		var status = await GetFlowerCareStatusAsync(deviceId);
+		var status = await GetMJHTV1StatusAsync(deviceId);
 
 		Console.WriteLine();
 		Console.WriteLine($"Battery level {status.BatteryLevel}%");

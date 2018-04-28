@@ -32,7 +32,7 @@ async Task<FlowerCareStatus> GetFlowerCareStatusAsync(string deviceId)
     return new FlowerCareStatus()
     {
         BatteryLevel = status[0],
-        FirmwareVersion = Encoding.ASCII.GetString(status.Skip(2).Take(6).ToArray())
+        FirmwareVersion = Encoding.ASCII.GetString(status.Skip(2).ToArray()).TrimEnd(new char[] { (char)0 })
     };
 }
 

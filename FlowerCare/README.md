@@ -9,7 +9,7 @@ Some people already did the reverse engineering work (thanks a lot) and they hav
 
 ## Read the Flower Care device status
 
-```csi FlowerCareGetStatus.csx --device-id=BluetoothLE#BluetoothLE98:5f:d3:3b:b0:55-c4:7c:8d:65:a9:16```
+```dude FlowerCareGetStatus.csx --device-id=BluetoothLE#BluetoothLE98:5f:d3:3b:b0:55-c4:7c:8d:65:a9:16```
 
 ### Sample output
 
@@ -27,7 +27,7 @@ Firmware version 3.1.8
 
 ## Read the Flower Care sensor data
 
-```csi FlowerCareGetSensorData.csx --device-id=BluetoothLE#BluetoothLE98:5f:d3:3b:b0:55-c4:7c:8d:65:a9:16```
+```dude FlowerCareGetSensorData.csx --device-id=BluetoothLE#BluetoothLE98:5f:d3:3b:b0:55-c4:7c:8d:65:a9:16```
 
 ### Sample output
 
@@ -49,7 +49,7 @@ Soil fertility 12 µS/cm
 
 ## Trigger a web hook
 
-```csi FlowerCareSendSensorWebHook.csx --device-id=BluetoothLE#BluetoothLE98:5f:d3:3b:b0:55-c4:7c:8d:65:a9:16 --device-name=Ficus --web-hook-url=https://hooks.zapier.com/hooks/catch/...```
+```dude FlowerCareSendSensorWebHook.csx --device-id=BluetoothLE#BluetoothLE98:5f:d3:3b:b0:55-c4:7c:8d:65:a9:16 --device-name=Ficus --web-hook-url=https://hooks.zapier.com/hooks/catch/...```
 
 ### Sample output
 

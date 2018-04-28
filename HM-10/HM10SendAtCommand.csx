@@ -15,8 +15,15 @@ else
     var deviceId = commandLineArgs["--device-id"];
 	var atCommand = commandLineArgs["--at-command"];
 
-    await SendAtCommandAsync(deviceId, atCommand, (atCommandResponse) => {
-		Console.WriteLine();
-		Console.WriteLine($"At command response is {atCommandResponse}");
-	});
+	try
+	{
+		await SendAtCommandAsync(deviceId, atCommand, (atCommandResponse) => {
+			Console.WriteLine();
+			Console.WriteLine($"At command response is {atCommandResponse}");
+		});
+	}
+	catch(Exception e)
+	{
+		Console.WriteLine($"Error: {e.Message}");
+	}
 }

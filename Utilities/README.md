@@ -4,7 +4,7 @@ c# scripts to enumerate and discover services and characteristics of BLE devices
 
 ## Enumerate BLE devices
 
-```csi EnumerateBleDevices.csx```
+```dude EnumerateBleDevices.csx```
 
 ### Sample output
 
@@ -33,7 +33,7 @@ Device enumeration completed
 
 ## Discover BLE device services and characteristics
 
-```csi DiscoverBleDeviceSercicesAndCharacteristics.csx --device-id=BluetoothLE#BluetoothLE98:5f:d3:3b:b0:55-c4:7c:8d:65:a9:16```
+```dude DiscoverBleDeviceSercicesAndCharacteristics.csx --device-id=BluetoothLE#BluetoothLE98:5f:d3:3b:b0:55-c4:7c:8d:65:a9:16```
 
 ### Sample output
 

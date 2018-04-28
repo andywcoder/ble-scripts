@@ -10,9 +10,16 @@ else
 {
     var deviceId = commandLineArgs["--device-id"];
 
-    var sensorData = await GetMJHTV1SensorDataAsync(deviceId);
+	try
+	{
+		var sensorData = await GetMJHTV1SensorDataAsync(deviceId);
 
-    Console.WriteLine();
-    Console.WriteLine($"Temperature {sensorData.Temperature} °C");
-    Console.WriteLine($"Air humidity {sensorData.AirHumidity} %");
+		Console.WriteLine();
+		Console.WriteLine($"Temperature {sensorData.Temperature} °C");
+		Console.WriteLine($"Air humidity {sensorData.AirHumidity} %");
+	}
+	catch(Exception e)
+	{
+		Console.WriteLine($"Error: {e.Message}");
+	}
 }

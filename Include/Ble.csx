@@ -11,10 +11,15 @@ async Task<BluetoothLEDevice> ConnectToDeviceAsync(string deviceId)
     Console.WriteLine($"Connect to device, Id={deviceId}");
 
     var bluetoothLeDevice = await BluetoothLEDevice.FromIdAsync(deviceId);
-
-    Console.WriteLine($"Connected to device, Name={bluetoothLeDevice.Name}");
-
-    return bluetoothLeDevice;
+	if(bluetoothLeDevice != null)
+	{
+		Console.WriteLine($"Connected to device, Name={bluetoothLeDevice.Name}");
+		return bluetoothLeDevice;
+	}
+	else
+	{
+		throw new Exception($"Couldn't connect to device");
+	}
 }
 
 async Task<GattDeviceService> GetServiceAsync(BluetoothLEDevice device, Guid uuid)
@@ -24,8 +29,16 @@ async Task<GattDeviceService> GetServiceAsync(BluetoothLEDevice device, Guid uui
     var servicesResult = await device.GetGattServicesForUuidAsync(uuid);
     if (servicesResult.Status == GattCommunicationStatus.Success)
     {
-        return servicesResult.Services.Single();
-    }
+        var service = servicesResult.Services.SingleOrDefault();
+		if (service != null)
+		{
+			return service;
+		}
+		else
+		{
+			throw new Exception($"Couldn't discover service");
+		}
+	}
     else
     {
         throw new Exception($"Couldn't discover service {servicesResult.Status}");
@@ -39,7 +52,15 @@ async Task<GattCharacteristic> GetCharacteristicAsync(GattDeviceService service,
     var characteristicsResult = await service.GetCharacteristicsForUuidAsync(uuid);
     if (characteristicsResult.Status == GattCommunicationStatus.Success)
     {
-        return characteristicsResult.Characteristics.Single();
+		var characteristic = characteristicsResult.Characteristics.SingleOrDefault();
+		if (characteristic != null)
+		{
+			return characteristic;
+		}
+		else
+		{
+			throw new Exception($"Couldn't discover characteristic");
+		}
     }
     else
     {
