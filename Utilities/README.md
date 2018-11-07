@@ -73,3 +73,48 @@ Characteristic, Uuid=00001a11-0000-1000-8000-00805f9b34fb, AttributeHandle=59, P
 Characteristic, Uuid=00001a10-0000-1000-8000-00805f9b34fb, AttributeHandle=61, Properties=Read, Write, Notify
 Characteristic, Uuid=00001a12-0000-1000-8000-00805f9b34fb, AttributeHandle=64, Properties=Read
 ```
+
+## Enumerate BLE devices
+
+```dude DeviceAdvertisementWatcher.csx```
+
+### Optional parameters
+
+--company-id
+filter by company ID
+
+--scan-time-in-seconds
+set scan time
+
+### Sample output
+
+```
+Creating advertisements watcher
+Starting advertisements watcher
+
+Advertisment received, AdvertisementType=ConnectableUndirected, BluetoothAddress=238460370389273, RawSignalStrengthInDBm=-86
+LocalName=
+Flags=GeneralDiscoverableMode, DualModeControllerCapable, DualModeHostCapable
+ManufacturerData, Company=75, Data=42-04-01-01-6F-D8-E0-E1-AB-89-19-DA-E0-E1-AB-89-18-0D-00-00-00-00-00-00
+
+Advertisment received, AdvertisementType=ConnectableUndirected, BluetoothAddress=238460370389273, RawSignalStrengthInDBm=-86
+LocalName=
+Flags=GeneralDiscoverableMode, DualModeControllerCapable, DualModeHostCapable
+ManufacturerData, Company=75, Data=42-04-01-20-6F-17-05-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00
+
+Advertisment received, AdvertisementType=ConnectableUndirected, BluetoothAddress=238460370389273, RawSignalStrengthInDBm=-83
+LocalName=
+Flags=GeneralDiscoverableMode, DualModeControllerCapable, DualModeHostCapable
+ManufacturerData, Company=75, Data=42-04-01-01-6F-D8-E0-E1-AB-89-19-DA-E0-E1-AB-89-18-0D-00-00-00-00-00-00
+
+Advertisment received, AdvertisementType=NonConnectableUndirected, BluetoothAddress=3850851150811, RawSignalStrengthInDBm=-58
+LocalName=
+Flags=
+ManufacturerData, Company=6, Data=01-09-20-02-2B-40-D0-18-51-CF-23-CC-EA-20-9F-C1-CA-B8-CC-C7-69-73-54-49-F0-9A-9E
+
+Advertisment received, AdvertisementType=NonConnectableUndirected, BluetoothAddress=3850851150811, RawSignalStrengthInDBm=-57
+LocalName=
+Flags=
+ManufacturerData, Company=6, Data=01-09-20-02-2B-40-D0-18-51-CF-23-CC-EA-20-9F-C1-CA-B8-CC-C7-69-73-54-49-F0-9A-9E
+Stopping advertisements watcher
+```
