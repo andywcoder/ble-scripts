@@ -74,7 +74,7 @@ Characteristic, Uuid=00001a10-0000-1000-8000-00805f9b34fb, AttributeHandle=61, P
 Characteristic, Uuid=00001a12-0000-1000-8000-00805f9b34fb, AttributeHandle=64, Properties=Read
 ```
 
-## Enumerate BLE devices
+## Watch for BLE advertisements
 
 ```dude DeviceAdvertisementWatcher.csx```
 
