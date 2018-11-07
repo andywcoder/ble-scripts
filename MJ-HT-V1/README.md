@@ -1,6 +1,6 @@
 # MJ-HT-V1 (Xiaomi Mijia Bluetooth Temperature Humidity Sensor)
 
-c# scripts to read the sensor data of the <a href="http://cleargrass.com/">MJ-HT-V1 (Xiaomi Mijia Bluetooth Temperature Humidity Sensor )</a> (temperature, air humidity).
+c# scripts to read the sensor data of the <a href="http://cleargrass.com/">MJ-HT-V1 (Xiaomi Mijia Bluetooth Temperature Humidity Sensor)</a> (temperature, air humidity).
 
 ## Read the MJ-HT-V1 device status
 
