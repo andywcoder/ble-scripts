@@ -4,7 +4,7 @@ c# scripts to enumerate and discover services and characteristics of BLE devices
 
 ## Enumerate BLE devices
 
-```dude EnumerateBleDevices.csx```
+```dude DeviceEnumerate.csx```
 
 ### Sample output
 
@@ -33,7 +33,7 @@ Device enumeration completed
 
 ## Discover BLE device services and characteristics
 
-```dude DiscoverBleDeviceSercicesAndCharacteristics.csx --device-id=BluetoothLE#BluetoothLE98:5f:d3:3b:b0:55-c4:7c:8d:65:a9:16```
+```dude DeviceDiscoverServicesAndCharacteristics.csx --device-id=BluetoothLE#BluetoothLE98:5f:d3:3b:b0:55-c4:7c:8d:65:a9:16```
 
 ### Sample output
 
@@ -118,3 +118,8 @@ Flags=
 ManufacturerData, Company=6, Data=01-09-20-02-2B-40-D0-18-51-CF-23-CC-EA-20-9F-C1-CA-B8-CC-C7-69-73-54-49-F0-9A-9E
 Stopping advertisements watcher
 ```
+
+# Read a characteristic
+
+```dude DeviceReadCharacteristic.csx --device-id=<DeviceId> --service-id=<ServiceId> --characteristic-id=<CharacteristicId>```
+
