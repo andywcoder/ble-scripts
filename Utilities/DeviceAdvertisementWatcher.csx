@@ -1,4 +1,4 @@
-#r "C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.16299.0\Windows.winmd"
+#r "C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.17134.0\Windows.winmd"
 
 #load "..\Include\CommandLine.csx"
 
@@ -10,12 +10,14 @@ using Windows.Devices.Enumeration;
 var commandLineArgs = ParseCommandLineArgs();
 if (commandLineArgs.ContainsKey("--help"))
 {
-    Console.WriteLine($"--company-id              filter by company ID");
-	Console.WriteLine($"--scan-time-in-seconds    set scan time");
+    Console.WriteLine("--company-id              filter by company ID");
+	Console.WriteLine("--service-id              filter by service ID");
+	Console.WriteLine("--scan-time-in-seconds    set scan time");
 }
 else
 {
     var companyId = commandLineArgs.ContainsKey("--company-id") ? ushort.Parse(commandLineArgs["--company-id"], System.Globalization.NumberStyles.AllowHexSpecifier) : (ushort)0;
+	var serviceId = commandLineArgs.ContainsKey("--service-id") ? commandLineArgs["--service-id"] : null;
 	var scanTimeInSeconds = commandLineArgs.ContainsKey("--scan-time-in-seconds") ? int.Parse(commandLineArgs["--scan-time-in-seconds"]) : 10;
 
 	Console.WriteLine("Creating advertisements watcher");
@@ -27,11 +29,15 @@ else
 		manufacturerDataFilter.CompanyId = companyId;
 		watcher.AdvertisementFilter.Advertisement.ManufacturerData.Add(manufacturerDataFilter);
 	}
+	if(!string.IsNullOrEmpty(serviceId))
+	{
+		watcher.AdvertisementFilter.Advertisement.ServiceUuids.Add(new Guid(serviceId));
+	}
 
 	watcher.Received += (sender, args) =>
 	{
 		Console.WriteLine($"");
-		Console.WriteLine($"Advertisment received, AdvertisementType={args.AdvertisementType}, BluetoothAddress={args.BluetoothAddress}, RawSignalStrengthInDBm={args.RawSignalStrengthInDBm}");
+		Console.WriteLine($"Advertisment received, AdvertisementType={args.AdvertisementType}, BluetoothAddress={string.Join("-", Array.ConvertAll(BitConverter.GetBytes(args.BluetoothAddress).Take(6).Reverse().ToArray(), b => b.ToString("X2")))}, RawSignalStrengthInDBm={args.RawSignalStrengthInDBm}");
 		Console.WriteLine($"LocalName={args.Advertisement.LocalName}");
 		Console.WriteLine($"Flags={args.Advertisement.Flags}");
 		foreach (var manufacturerData in args.Advertisement.ManufacturerData)
