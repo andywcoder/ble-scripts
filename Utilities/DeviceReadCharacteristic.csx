@@ -1,4 +1,4 @@
-#r "C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.15063.0\Windows.winmd"
+#r "C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.17763.0\Windows.winmd"
 
 #load "..\Include\CommandLine.csx"
 #load "..\Include\Ble.csx"

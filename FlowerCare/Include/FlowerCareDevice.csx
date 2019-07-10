@@ -3,7 +3,7 @@
 // https://wiki.hackerspace.pl/projects:xiaomi-flora
 // https://community.home-assistant.io/t/xiaomi-mi-plants-monitor-flower/3388
 
-#r "C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.16299.0\Windows.winmd"
+#r "C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.17763.0\Windows.winmd"
 
 #load "..\..\Include\Ble.csx"
 
